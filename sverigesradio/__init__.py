@@ -5,25 +5,15 @@ import json
 import requests
 from datetime import datetime
 
-"""
-
-SverigesRadio.channel(164).name
-SverigesRadio.channel(164).song
-SverigesRadio.channel(164).song.now
-SverigesRadio.channel(164).song.next
-SverigesRadio.channel(164).program
-
-"""
-
 
 class Song(object):
     def __init__(self, artist=None, title=None, description=None,
                  composer=None, conductor=None, **kwargs):
-        self.artist = artist
-        self.title = title
-        self.description = description
-        self.composer = composer
-        self.conductor = conductor
+        self.artist = artist.encode('utf-8')
+        self.title = title.encode('utf-8')
+        self.description = description.encode('utf-8')
+        self.composer = composer.encode('utf-8')
+        self.conductor = conductor.encode('utf-8')
 
     def __repr__(self):
         return 'Song(%s - %s)' % (self.artist, self.title)
@@ -32,7 +22,7 @@ class Song(object):
 class Episode(object):
     def __init__(self, title=None, starttimeutc=None,
                  endtimeutc=None, **kwargs):
-        self.title = title
+        self.title = title.encode('utf-8')
         self.starttimeutc = starttimeutc
         self.endtimeutc = endtimeutc
 
@@ -71,14 +61,14 @@ class Channel(object):
             raise Exception('No such channel')
 
         self.id = id
-        self.name = name
+        self.name = name.encode('utf-8')
         self.siteurl = siteurl
         self.color = color
         self.image = image
         self.url = url
 
     def __repr__(self):
-        return 'Channel(%s)' % self.id
+        return 'Channel(%s)' % self.name
 
     @property
     def song(self):
